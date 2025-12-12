@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio - Edunet Foundation</title>
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --accent:#6ee7b7;
+            --muted:#94a3b8;
+            --glass: rgba(255,255,255,0.03);
+            --radius:12px;
+            --maxw:1100px;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg), #071026 60%);
+            color:#e6eef8;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:32px;
+            display:flex;
+            justify-content:center;
+        }
+        .wrap{
+            width:100%;
+            max-width:var(--maxw);
+        }
+
+        header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            margin-bottom:20px;
+        }
+        .brand{
+            display:flex;
+            gap:12px;
+            align-items:center;
+        }
+        .logo{
+            width:56px;height:56px;border-radius:12px;
+            background:linear-gradient(135deg,#0ea5a4,#06b6d4);
+            display:grid;place-items:center;font-weight:700;color:#04263b;
+            box-shadow:0 4px 18px rgba(6,182,212,0.12);
+            font-size:20px;
+        }
+        h1{margin:0;font-size:18px;line-height:1}
+        p.sub{margin:0;color:var(--muted);font-size:13px}
+
+        nav.topnav{
+            background:var(--glass);
+            padding:10px 14px;border-radius:12px;
+            display:flex;gap:8px;
+            box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+        nav.topnav a{
+            color:var(--muted);
+            text-decoration:none;padding:8px 12px;border-radius:10px;
+            font-size:14px;
+        }
+        nav.topnav a.active, nav.topnav a:hover{
+            background:linear-gradient(90deg,rgba(110,231,183,0.08),rgba(6,182,212,0.06));
+            color:var(--accent);
+            box-shadow:0 6px 18px rgba(6,182,212,0.06);
+        }
+
+        .layout{
+            display:grid;
+            grid-template-columns:320px 1fr;
+            gap:20px;
+            align-items:start;
+        }
+
+        aside.card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            padding:18px;border-radius:var(--radius);
+            box-shadow:0 8px 30px rgba(2,6,23,0.6);
+            min-height:280px;
+        }
+        .profile{
+            display:flex;gap:12px;align-items:center;margin-bottom:12px;
+        }
+        .avatar{
+            width:72px;height:72px;border-radius:14px;background:#04263b;
+            overflow:hidden;flex:0 0 72px;
+        }
+        .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+        .meta h2{margin:0;font-size:16px}
+        .meta p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+
+        .info-list{margin-top:14px;display:grid;gap:8px}
+        .info-list div{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+        .skill-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+        .badge{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+        main{
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            padding:20px;border-radius:var(--radius);
+            box-shadow:0 8px 30px rgba(2,6,23,0.6);
+        }
+
+        .hero{
+            display:flex;gap:18px;align-items:center;margin-bottom:18px;
+        }
+        .hero .intro{flex:1}
+        .hero h2{margin:0;font-size:20px}
+        .hero p{margin:6px 0;color:var(--muted)}
+        .hero .cta{display:flex;gap:8px;margin-top:8px}
+        .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--accent);cursor:pointer}
+        .btn.secondary{color:var(--muted);border-color:rgba(255,255,255,0.03)}
+
+        /* Tabs */
+        .tabs{display:flex;gap:8px;border-bottom:1px dashed rgba(255,255,255,0.03);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap}
+        .tab{
+            padding:8px 12px;border-radius:10px;color:var(--muted);
+            cursor:pointer;font-size:14px;background:transparent;border:1px solid transparent;
+        }
+        .tab.active{color:#04263b;background:linear-gradient(90deg,var(--accent),#34d399);box-shadow:0 6px 18px rgba(6,182,212,0.08)}
+        .panel{display:none}
+        .panel.active{display:block}
+
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        .card-small{
+            background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+            padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+        }
+        .card-small h3{margin:0 0 8px 0;font-size:15px}
+        .card-small p{margin:0;color:var(--muted);font-size:13px}
+
+        .research-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+        .research-item img{width:96px;height:64px;border-radius:8px;object-fit:cover;flex:0 0 96px}
+        .research-item .rmeta h4{margin:0;font-size:14px}
+        .research-item .rmeta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+        footer{
+            margin-top:20px;padding:12px;border-radius:12px;background:transparent;color:var(--muted);text-align:center;font-size:13px;
+        }
+
+        /* responsive */
+        @media (max-width:900px){
+            .layout{grid-template-columns:1fr;gap:14px}
+            .hero{flex-direction:column;align-items:flex-start}
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" role="application">
+        <header>
+            <div class="brand">
+                <div class="logo">EF</div>
+                <div>
+                    <h1>Edunet Foundation</h1>
+                    <p class="sub">Researcher • Educator • Author</p>
+                </div>
+            </div>
+
+            <nav class="topnav" aria-label="Top Navigation">
+                <a href="#" class="active">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </header>
+
+        <div class="layout">
+            <aside class="card" aria-label="Profile">
+                <div class="profile">
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/300x300.png?text=Avatar" alt="profile avatar" />
+                    </div>
+                    <div class="meta">
+                        <h2>Dr. A. Researcher</h2>
+                        <p>Associate Professor, Data Science</p>
+                    </div>
+                </div>
+
+                <div class="info-list">
+                    <div><span>Location</span><span>New Delhi, IN</span></div>
+                    <div><span>Experience</span><span>12 yrs</span></div>
+                    <div><span>Email</span><span>research@edunet.org</span></div>
+                </div>
+
+                <div class="skill-badges" aria-hidden="false">
+                    <span class="badge">Machine Learning</span>
+                    <span class="badge">NLP</span>
+                    <span class="badge">Data Visualization</span>
+                    <span class="badge">Curriculum Design</span>
+                </div>
+            </aside>
+
+            <main>
+                <div class="hero">
+                    <div class="intro">
+                        <h2>Welcome to the professional portfolio</h2>
+                        <p>Selected works, publications and mentorship activities. Scroll through tabs to explore skills, research, academic records, books and projects guided.</p>
+                        <div class="cta">
+                            <button class="btn">Download CV</button>
+                            <button class="btn secondary">Contact</button>
+                        </div>
+                    </div>
+                    <div class="hero-img">
+                        <img src="https://via.placeholder.com/220x140.png?text=Work+Snapshot" alt="work snapshot" style="border-radius:10px;box-shadow:0 8px 24px rgba(2,6,23,0.6);" />
+                    </div>
+                </div>
+
+                <div class="tabs" role="tablist" aria-label="Portfolio Sections">
+                    <div class="tab active" role="tab" tabindex="0" data-target="skills">Skills</div>
+                    <div class="tab" role="tab" tabindex="0" data-target="research">Research</div>
+                    <div class="tab" role="tab" tabindex="0" data-target="academic">Academic Records</div>
+                    <div class="tab" role="tab" tabindex="0" data-target="books">Books Written</div>
+                    <div class="tab" role="tab" tabindex="0" data-target="projects">Projects Guided</div>
+                </div>
+
+                <section id="skills" class="panel active" role="tabpanel">
+                    <div class="grid-2">
+                        <div class="card-small">
+                            <h3>Technical Skills</h3>
+                            <p>Python, R, TensorFlow, PyTorch, SQL, Docker, Git</p>
+                        </div>
+                        <div class="card-small">
+                            <h3>Teaching & Mentoring</h3>
+                            <p>Course design, lab supervision, student advisement, workshop facilitation</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top:14px">Highlighted Tools</h3>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+                        <img src="https://via.placeholder.com/80x50.png?text=TF" alt="tool" style="border-radius:8px"/>
+                        <img src="https://via.placeholder.com/80x50.png?text=Py" alt="tool" style="border-radius:8px"/>
+                        <img src="https://via.placeholder.com/80x50.png?text=R" alt="tool" style="border-radius:8px"/>
+                        <img src="https://via.placeholder.com/80x50.png?text=SQL" alt="tool" style="border-radius:8px"/>
+                    </div>
+                </section>
+
+                <section id="research" class="panel" role="tabpanel" aria-hidden="true">
+                    <div class="research-item">
+                        <img src="https://via.placeholder.com/160x96.png?text=Paper+1" alt="paper 1">
+                        <div class="rmeta">
+                            <h4>Efficient Neural Methods for Low-Resource Languages</h4>
+                            <p>International Journal of ML — 2023. Abstract: Techniques to adapt large models to low-resource settings with limited annotations.</p>
+                        </div>
+                    </div>
+
+                    <div class="research-item">
+                        <img src="https://via.placeholder.com/160x96.png?text=Paper+2" alt="paper 2">
+                        <div class="rmeta">
+                            <h4>Curriculum-Based Data Augmentation for Education</h4>
+                            <p>Proceedings of EdTech Conf — 2022. Abstract: Data augmentation strategies tailored for educational datasets.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="academic" class="panel" role="tabpanel" aria-hidden="true">
+                    <div class="card-small" style="margin-bottom:12px">
+                        <h3>Education</h3>
+                        <p>Ph.D. in Computer Science — IIT Example (2014)</p>
+                        <p>M.Sc. Data Science — Example University (2010)</p>
+                    </div>
+                    <div class="card-small">
+                        <h3>Awards & Grants</h3>
+                        <p>National Research Grant 2021; Teaching Excellence Award 2019</p>
+                    </div>
+                </section>
+
+                <section id="books" class="panel" role="tabpanel" aria-hidden="true">
+                    <div class="research-item">
+                        <img src="https://via.placeholder.com/160x96.png?text=Book+1" alt="book 1">
+                        <div class="rmeta">
+                            <h4>Applied Machine Learning for Educators</h4>
+                            <p>Publisher: EduPress — 2020. A practical primer to bring ML concepts into classroom teaching.</p>
+                        </div>
+                    </div>
+
+                    <div class="research-item">
+                        <img src="https://via.placeholder.com/160x96.png?text=Book+2" alt="book 2">
+                        <div class="rmeta">
+                            <h4>Hands-on NLP Projects</h4>
+                            <p>Publisher: TechReads — 2018. Project-based guide for natural language processing applications.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="panel" role="tabpanel" aria-hidden="true">
+                    <div class="card-small" style="margin-bottom:12px">
+                        <h3>Guided Projects</h3>
+                        <p>Mentored 30+ capstone projects on topics like explainable AI, curriculum analytics, adaptive learning systems.</p>
+                    </div>
+
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+                        <div class="card-small" style="flex:1 1 220px">
+                            <h3>Adaptive Tutor System</h3>
+                            <p>Supervised ML-based adaptive assessment tool with real classroom pilots.</p>
+                        </div>
+                        <div class="card-small" style="flex:1 1 220px">
+                            <h3>Learning Analytics Dashboard</h3>
+                            <p>Project to visualize student engagement and outcomes across courses.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                    © 2025 Edunet Foundation — Portfolio generated as demo content.
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Simple tabs
+        (function(){
+            const tabs = document.querySelectorAll('.tab');
+            function activate(target){
+                document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.target===target));
+                document.querySelectorAll('.panel').forEach(p=>{
+                    const show = p.id===target;
+                    p.classList.toggle('active', show);
+                    p.setAttribute('aria-hidden', !show);
+                });
+            }
+            tabs.forEach(t=>{
+                t.addEventListener('click', ()=>activate(t.dataset.target));
+                t.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); activate(t.dataset.target); } });
+            });
+        })();
+    </script>
+</body>
+</html>
